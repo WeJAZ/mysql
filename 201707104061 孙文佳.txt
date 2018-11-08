@@ -1,0 +1,104 @@
+Microsoft Windows [版本 10.0.16299.15]
+(c) 2017 Microsoft Corporation。保留所有权利。
+
+C:\Users\Administrator>mysql -u root -p
+Enter password: ********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 17
+Server version: 8.0.12 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database shopping charset=utf8;
+Query OK, 1 row affected, 1 warning (0.08 sec)
+
+mysql> use shopping;
+Database changed
+mysql> create table shopping1(id int(6) primary key auto_increment,name varchar(10) not null,num int(3) default 1);
+Query OK, 0 rows affected (0.46 sec)
+
+mysql> desc shopping1;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int(6)      | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(10) | NO   |     | NULL    |                |
+| num   | int(3)      | YES  |     | 1       |                |
++-------+-------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> alter table shopping1 add like varchar(3) not null,zhekoutixing varchar(5),hope varchar(10);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'like varchar(3) not null,zhekoutixing varchar(5),hope varchar(10)' at line 1
+mysql> alter table shopping1 add like varchar(3) not null;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'like varchar(3) not null' at line 1
+mysql> alter table shopping1 add like varchar(3) not null;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'like varchar(3) not null' at line 1
+mysql> alter table shopping1 add hobby varchar(3) not null;
+Query OK, 0 rows affected (0.30 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table shopping1 add tixing varchar(2);
+Query OK, 0 rows affected (0.31 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table shopping1 add hope varchar(5);
+Query OK, 0 rows affected (0.40 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc shopping1;
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| id     | int(6)      | NO   | PRI | NULL    | auto_increment |
+| name   | varchar(10) | NO   |     | NULL    |                |
+| num    | int(3)      | YES  |     | 1       |                |
+| hobby  | varchar(3)  | NO   |     | NULL    |                |
+| tixing | varchar(2)  | YES  |     | NULL    |                |
+| hope   | varchar(5)  | YES  |     | NULL    |                |
++--------+-------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> insert into shopping1(id,name,num,hobby,tixing,hope)values(1,'WeJ',null,'no',null,null),(2,'WeJ2',null,'Yes',null,null);
+Query OK, 2 rows affected (0.06 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from shopping2;
+ERROR 1146 (42S02): Table 'shopping.shopping2' doesn't exist
+mysql> select * from shopping1;
++----+------+------+-------+--------+------+
+| id | name | num  | hobby | tixing | hope |
++----+------+------+-------+--------+------+
+|  1 | WeJ  | NULL | no    | NULL   | NULL |
+|  2 | WeJ2 | NULL | Yes   | NULL   | NULL |
++----+------+------+-------+--------+------+
+2 rows in set (0.00 sec)
+
+mysql> update shopping1 set hope='QQ' where id=2;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from shopping1;
++----+------+------+-------+--------+------+
+| id | name | num  | hobby | tixing | hope |
++----+------+------+-------+--------+------+
+|  1 | WeJ  | NULL | no    | NULL   | NULL |
+|  2 | WeJ2 | NULL | Yes   | NULL   | QQ   |
++----+------+------+-------+--------+------+
+2 rows in set (0.00 sec)
+
+mysql> delete from shopping1 where name='WeJ';
+Query OK, 1 row affected (0.14 sec)
+
+mysql> select * from shopping1;
++----+------+------+-------+--------+------+
+| id | name | num  | hobby | tixing | hope |
++----+------+------+-------+--------+------+
+|  2 | WeJ2 | NULL | Yes   | NULL   | QQ   |
++----+------+------+-------+--------+------+
+1 row in set (0.00 sec)
