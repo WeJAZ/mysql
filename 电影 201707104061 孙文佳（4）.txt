@@ -1,0 +1,126 @@
+Microsoft Windows [版本 10.0.16299.15]
+(c) 2017 Microsoft Corporation。保留所有权利。
+
+C:\Users\Administrator>mysql -u root -p
+Enter password: ********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 41
+Server version: 8.0.12 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use biao1;
+ERROR 1049 (42000): Unknown database 'biao1'
+mysql> use WeJ;
+ERROR 1049 (42000): Unknown database 'wej'
+mysql> use WeJ1;
+ERROR 1049 (42000): Unknown database 'wej1'
+mysql> create database biao2;
+Query OK, 1 row affected (0.06 sec)
+
+mysql> create table movie(name varchar(15) primary key auto_interment not null,year int(5) not null,diretor varchar(10) not null,score int(2));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'auto_interment not null,year int(5) not null,diretor varchar(10) not null,score ' at line 1
+mysql> create table movie(name varchar(15) primary key auto_increment not null,year int(5) not null,diretor varchar(10) not null,score int(2));
+ERROR 1046 (3D000): No database selected
+mysql> use biao2;
+Database changed
+mysql> create table movie(name varchar(15) primary key auto_increment not null,year int(5) not null,diretor varchar(10) not null,score int(2));
+ERROR 1063 (42000): Incorrect column specifier for column 'name'
+mysql> create table movie(name varchar(15) primary key not null,year int(5) not null,diretor varchar(10) not null,score int(2));
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> desc movie;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| name    | varchar(15) | NO   | PRI | NULL    |       |
+| year    | int(5)      | NO   |     | NULL    |       |
+| diretor | varchar(10) | NO   |     | NULL    |       |
+| score   | int(2)      | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into movie(name,year,diretor,score)values('loverosie',2014,'dite',8);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from movie;
++-----------+------+---------+-------+
+| name      | year | diretor | score |
++-----------+------+---------+-------+
+| loverosie | 2014 | dite    |     8 |
++-----------+------+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> insert into movie(name,year,diretor,score)values('loveaarosie',2015,'dite',8),('lovebarosie',2015,'dite',9),('lbboveaarosie',2025,'dite',8);
+Query OK, 3 rows affected (0.07 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from movie;
++---------------+------+---------+-------+
+| name          | year | diretor | score |
++---------------+------+---------+-------+
+| lbboveaarosie | 2025 | dite    |     8 |
+| loveaarosie   | 2015 | dite    |     8 |
+| lovebarosie   | 2015 | dite    |     9 |
+| loverosie     | 2014 | dite    |     8 |
++---------------+------+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select name from list where name like"%sad%";
+ERROR 1146 (42S02): Table 'biao2.list' doesn't exist
+mysql> select name from list where name like"%over%";
+ERROR 1146 (42S02): Table 'biao2.list' doesn't exist
+mysql> select name from list where name like "%over%";
+ERROR 1146 (42S02): Table 'biao2.list' doesn't exist
+mysql> select name from biao2 where name like "%over%";
+ERROR 1146 (42S02): Table 'biao2.biao2' doesn't exist
+mysql> select name from movie where name like "%over%";
++-----------+
+| name      |
++-----------+
+| loverosie |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select diretor from movie where diretor like "%dite%";
++---------+
+| diretor |
++---------+
+| dite    |
+| dite    |
+| dite    |
+| dite    |
++---------+
+4 rows in set (0.00 sec)
+
+mysql> select year from movie where year like "%2014%";
++------+
+| year |
++------+
+| 2014 |
++------+
+1 row in set (0.00 sec)
+
+mysql> select year from movie where year like "2014";
++------+
+| year |
++------+
+| 2014 |
++------+
+1 row in set (0.00 sec)
+
+mysql> select score from movie where score like "9";
++-------+
+| score |
++-------+
+|     9 |
++-------+
+1 row in set (0.00 sec)
+
+mysql>
