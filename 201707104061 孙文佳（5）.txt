@@ -1,0 +1,34 @@
+use wej200;
+drop table if exists userr;
+create table userr (
+userr_id smallint unsigned not null auto_increment,
+userr_name varchar(20) not null,
+last_update timestamp not null default current_timestamp on update current_timestamp,
+primary key(userr_id)
+)engine=InnoDB default charset=utf8;
+
+
+use wej200;
+drop table if exists zhuangbei;
+create table zhuangbei(
+zhuangbei_id smallint unsigned not null auto_increment,
+zhuangbei_name varchar(20) not null,
+zhuangbei_money int unsigned not null,
+userr_id smallint unsigned not null,
+last_update timestamp not null default current_timestamp on update current_timestamp,
+primary key(zhuangbei_id),
+
+key `idx_fk_userr_id` (userr_id),
+constraint `fk_zhuangbei_userr` foreign key
+(userr_id) references userr (userr_id)
+on delete restrict on update cascade
+)endesc userr;
+desc zhuangbei;
+insert into userr(userr) values ('gaga');
+select * from userr;
+select * from zhuangbei;
+insert into zhuangbei_name(zhaungbei_name,zhuangbei_id) values ('kule',1);
+select * from userr;
+delete from userr where userr_id=1;
+update userr set userr_id = 10000 where userr_id = 1;
+ select * from zhuangbei;gine=InnoDB default charset=utf8;
